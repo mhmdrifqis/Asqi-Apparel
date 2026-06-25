@@ -1,58 +1,100 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Asqi Apparel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Asqi Apparel is a brutalist-themed e-commerce web application built with **Laravel 11**, **Tailwind CSS 4**, and **Alpine.js**.
 
-## About Laravel
+## 🚀 Features
+- **Brutalist Design System**: Bold typography, high-contrast borders, and stark layouts.
+- **Product Management**: Full CRUD for products, categories, and variants with an admin dashboard.
+- **Dynamic Product Variants**: Drag-and-drop variant sorting, automatic SKU generation, and color/size tracking.
+- **Shopping Cart & Wishlist**: Real-time cart updates and wishlist functionality.
+- **Live Search**: Instant AJAX-based product search functionality.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Prerequisites
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Before you begin, ensure you have the following installed on your local machine:
+- **PHP** >= 8.2
+- **Composer** (PHP dependency manager)
+- **Node.js & NPM** (for compiling frontend assets)
+- **MySQL / MariaDB** (or any database supported by Laravel)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Installation Guide
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Follow these steps to set up the project locally:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Clone the Repository
+If you haven't already, clone the repository to your local machine:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/YOUR_USERNAME/asqi-apparel.git
+cd asqi-apparel
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install PHP Dependencies
+Install all required Laravel packages using Composer:
+```bash
+composer install
+```
 
-## Contributing
+### 3. Setup Environment Variables
+Duplicate the example environment file and rename it to `.env`:
+```bash
+cp .env.example .env
+```
+Open the `.env` file and configure your database credentials:
+```ini
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=asqi_apparel
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Generate Application Key
+Run the following command to generate the Laravel application encryption key:
+```bash
+php artisan key:generate
+```
 
-## Code of Conduct
+### 5. Run Migrations & Database Seeder
+Create the necessary database tables and populate them with default data (categories, products, and variants):
+```bash
+php artisan migrate:fresh --seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 6. Install & Compile Frontend Assets (NPM)
+Install all frontend dependencies (Tailwind CSS, Alpine.js, etc.) and compile the assets:
+```bash
+# Install dependencies
+npm install
 
-## Security Vulnerabilities
+# Build assets for production
+npm run build
+```
+*(Note: If you are actively developing and changing CSS/JS files, you can leave `npm run dev` running in a separate terminal tab).*
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 7. Link Storage (Optional but Recommended)
+To ensure product images and uploads are publicly accessible:
+```bash
+php artisan storage:link
+```
 
-## License
+### 8. Run the Local Server
+Start Laravel's built-in development server:
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The application should now be accessible at [http://localhost:8000](http://localhost:8000).
+
+---
+
+## 🎨 Technology Stack
+- **Backend**: Laravel 11.x
+- **Frontend**: Blade Templates + Alpine.js
+- **Styling**: Tailwind CSS v4 + PostCSS
+- **Database**: MySQL
+
+## 👤 Admin Access
+You can access the admin panel by logging into any user account that has an `is_admin` boolean set to true in the database. (If using standard Auth, ensure your user account is promoted to admin).
