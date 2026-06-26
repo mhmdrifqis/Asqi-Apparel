@@ -91,12 +91,21 @@
                         <span class="text-2xl font-black text-primary" x-text="formatMoney(subtotal)">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
                     </div>
                     
+                    @auth
                     <button @click="if(hasSelectedItems) window.location.href='{{ route('checkout') }}'" 
                             class="w-full py-4 text-lg text-center block font-bold tracking-widest uppercase transition-colors"
                             :class="hasSelectedItems ? 'bg-primary text-white hover:bg-primary-light cursor-pointer' : 'bg-gray-200 text-gray-500 cursor-not-allowed'"
                             :disabled="!hasSelectedItems">
-                        Proceed to Checkout
+                        Checkout
                     </button>
+                    @else
+                    <button @click="authModalOpen = true; authTab = 'login'" 
+                            class="w-full py-4 text-lg text-center block font-bold tracking-widest uppercase transition-colors"
+                            :class="hasSelectedItems ? 'bg-primary text-white hover:bg-primary-light cursor-pointer' : 'bg-gray-200 text-gray-500 cursor-not-allowed'"
+                            :disabled="!hasSelectedItems">
+                        Checkout
+                    </button>
+                    @endauth
                     
                     <p class="text-center text-xs text-text-muted mt-4">
                         Taxes and shipping are calculated at checkout

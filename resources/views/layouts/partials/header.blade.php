@@ -26,14 +26,14 @@
             <nav class="hidden lg:flex h-full" x-data="{ activeMenu: null }">
                 <ul class="flex space-x-8 h-full items-center">
                     <li class="h-full flex items-center">
-                        <a href="{{ route('products.index') }}" class="text-white hover:text-gray-300 font-bold uppercase tracking-widest text-sm transition-colors h-full flex items-center border-b-4 border-transparent hover:border-white">
+                        <a href="{{ route('products.index') }}" class="text-white hover:text-accent font-bold uppercase tracking-widest text-sm transition-colors h-full flex items-center border-b-4 border-transparent hover:border-accent">
                             Collections
                         </a>
                     </li>
                     @if(isset($navCategories))
                         @foreach($navCategories as $parent)
                             <li class="h-full flex items-center">
-                                <a href="{{ route('products.index', ['category' => $parent->slug]) }}" class="text-white hover:text-gray-300 font-bold uppercase tracking-widest text-sm transition-colors h-full flex items-center border-b-4 border-transparent hover:border-white">
+                                <a href="{{ route('products.index', ['category' => $parent->slug]) }}" class="text-white hover:text-accent font-bold uppercase tracking-widest text-sm transition-colors h-full flex items-center border-b-4 border-transparent hover:border-accent">
                                     {{ $parent->name }}
                                 </a>
                             </li>

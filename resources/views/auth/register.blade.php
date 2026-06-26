@@ -16,7 +16,7 @@
                 <a href="{{ route('home') }}" class="inline-block mb-8">
                     @php $headerLogo = \App\Models\Setting::get('store_logo'); @endphp
                     @if($headerLogo)
-                        <img src="{{ $headerLogo }}" alt="{{ config('app.name') }}" class="h-12 object-contain mx-auto filter brightness-0 invert">
+                        <img src="{{ $headerLogo }}" alt="{{ config('app.name') }}" class="h-12 object-contain mx-auto filter brightness-0">
                     @else
                         <span class="font-black text-4xl tracking-tighter uppercase">
                             ASQI<span class="text-accent">.</span>
@@ -56,7 +56,7 @@
                     <a href="{{ route('home') }}" class="inline-block">
                         @php $headerLogo = \App\Models\Setting::get('store_logo'); @endphp
                         @if($headerLogo)
-                            <img src="{{ $headerLogo }}" alt="{{ config('app.name') }}" class="h-10 object-contain mx-auto">
+                            <img src="{{ $headerLogo }}" alt="{{ config('app.name') }}" class="h-10 object-contain mx-auto filter brightness-0">
                         @else
                             <span class="font-black text-3xl tracking-tighter uppercase text-primary">
                                 ASQI<span class="text-accent">.</span>

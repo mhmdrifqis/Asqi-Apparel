@@ -50,7 +50,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Men -->
             <a href="{{ route('products.index', ['gender' => 'men']) }}" class="group relative aspect-square overflow-hidden bg-gray-100 block">
-                <img src="https://placehold.co/600x600/111111/ffffff?text=MEN" alt="Shop Men" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
+                <img src="{{ asset('images/Men.png') }}" alt="Shop Men" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                 <div class="absolute bottom-6 left-6 z-20">
                     <span class="bg-white text-black text-sm font-bold uppercase tracking-widest px-6 py-3 shadow-md">Men</span>
@@ -58,7 +58,7 @@
             </a>
             <!-- Women -->
             <a href="{{ route('products.index', ['gender' => 'women']) }}" class="group relative aspect-square overflow-hidden bg-gray-100 block">
-                <img src="https://placehold.co/600x600/333333/ffffff?text=WOMEN" alt="Shop Women" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
+                <img src="{{ asset('images/Women.png') }}" alt="Shop Women" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                 <div class="absolute bottom-6 left-6 z-20">
                     <span class="bg-white text-black text-sm font-bold uppercase tracking-widest px-6 py-3 shadow-md">Women</span>
@@ -66,7 +66,7 @@
             </a>
             <!-- Kids -->
             <a href="{{ route('products.index', ['gender' => 'kids']) }}" class="group relative aspect-square overflow-hidden bg-gray-100 block">
-                <img src="https://placehold.co/600x600/555555/ffffff?text=KIDS" alt="Shop Kids" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
+                <img src="{{ asset('images/Kids.png') }}" alt="Shop Kids" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                 <div class="absolute bottom-6 left-6 z-20">
                     <span class="bg-white text-black text-sm font-bold uppercase tracking-widest px-6 py-3 shadow-md">Kids</span>

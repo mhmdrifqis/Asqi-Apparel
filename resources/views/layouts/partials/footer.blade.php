@@ -27,10 +27,10 @@
                 <ul class="space-y-4 text-sm text-gray-400">
                     @if(isset($navCategories))
                         @foreach($navCategories as $cat)
-                            <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-white transition-colors">{{ $cat->name }}</a></li>
+                            <li><a href="{{ route('products.index', ['category' => $cat->slug]) }}" class="hover:text-accent transition-colors">{{ $cat->name }}</a></li>
                         @endforeach
                     @endif
-                    <li><a href="{{ route('products.index') }}" class="hover:text-white transition-colors">All Collections</a></li>
+                    <li><a href="{{ route('products.index') }}" class="hover:text-accent transition-colors">All Collections</a></li>
             
                 </ul>
             </div>
@@ -38,7 +38,7 @@
             <!-- Support -->
             <div>
                 <h3 class="text-sm font-bold tracking-widest uppercase mb-6 text-white">Support</h3>
-                <ul class="space-y-4 text-sm text-gray-400 font-bold uppercase tracking-wider">
+                <ul class="space-y-4 text-sm text-gray-400">
                     <li><a href="{{ route('shipping-returns') }}" class="hover:text-accent transition-colors">Shipping & Returns</a></li>
                     <li><a href="{{ route('size-guide') }}" class="hover:text-accent transition-colors">Size Guide</a></li>
                     <li><a href="{{ route('faq') }}" class="hover:text-accent transition-colors">FAQ</a></li>
@@ -50,7 +50,7 @@
             <!-- Company -->
             <div>
                 <h3 class="text-sm font-bold tracking-widest uppercase mb-6 text-white">Company</h3>
-                <ul class="space-y-4 text-sm text-gray-400 font-bold uppercase tracking-wider">
+                <ul class="space-y-4 text-sm text-gray-400">
                     <li><a href="{{ route('about') }}" class="hover:text-accent transition-colors">About ASQI</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-accent transition-colors">Contact Us</a></li>
                     <li><a href="{{ route('careers') }}" class="hover:text-accent transition-colors">Careers</a></li>
@@ -59,9 +59,14 @@
         </div>
 
         <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-gray-500 text-sm">
-                &copy; {{ date('Y') }} Asqi Apparel. All rights reserved.
-            </p>
+            <div class="text-center md:text-left">
+                <p class="text-gray-500 text-sm">
+                    &copy; {{ date('Y') }} Asqi Apparel. All rights reserved.
+                </p>
+                <p class="text-gray-500 text-xs mt-1">
+                    Developed by <a href="https://github.com/mhmdrifqis" target="_blank" class="hover:text-accent transition-colors font-bold tracking-wide">221011400528 - Muhammad Rifqi Saifulloh</a>
+                </p>
+            </div>
             
             <!-- Payment Methods (Icons) -->
             <div class="flex gap-3 items-center opacity-70">

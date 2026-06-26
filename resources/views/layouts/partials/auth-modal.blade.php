@@ -49,7 +49,7 @@
                     <div class="flex justify-center mb-6">
                         @php $modalLogo = \App\Models\Setting::get('store_logo'); @endphp
                         @if($modalLogo)
-                            <img src="{{ $modalLogo }}" alt="{{ config('app.name') }}" class="h-12 object-contain">
+                            <img src="{{ $modalLogo }}" alt="{{ config('app.name') }}" class="h-12 object-contain filter brightness-0">
                         @else
                             <h2 class="text-3xl font-black uppercase tracking-tighter text-primary">ASQI.</h2>
                         @endif

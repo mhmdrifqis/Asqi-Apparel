@@ -10,6 +10,14 @@
     <meta name="description" content="@yield('meta_description', 'Premium sportswear and activewear designed for peak performance and unparalleled aesthetics. Elevate your game with Asqi Apparel.')">
     <meta name="keywords" content="sportswear, activewear, gym clothes, performance apparel, fitness, running">
     
+    <!-- Favicon -->
+    @php $favicon = \App\Models\Setting::get('store_logo'); @endphp
+    @if($favicon)
+        <link rel="icon" type="image/png" href="{{ $favicon }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    @endif
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">

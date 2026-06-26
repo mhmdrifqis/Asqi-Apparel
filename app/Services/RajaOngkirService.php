@@ -19,13 +19,12 @@ class RajaOngkirService
         $this->type = Setting::get('rajaongkir_type', 'starter'); // starter, basic, pro
         $this->originCityId = Setting::get('store_city_id', '152'); // Default to Jakarta Pusat
         
-        $this->baseUrl = $this->type === 'pro' 
-            ? 'https://pro.rajaongkir.com/api' 
-            : 'https://api.rajaongkir.com/starter';
+        // Use Komerce API for RajaOngkir V2
+        $this->baseUrl = 'https://rajaongkir.komerce.id/api/v1';
     }
 
     /**
-     * Get list of provinces. Cached for 24 hours.
+     * Get list of provinces.
      */
     public function getProvinces()
     {
@@ -34,20 +33,30 @@ class RajaOngkirService
 
         try {
             $response = Http::withHeaders(['key' => $this->apiKey])
-                ->timeout(5)
-                ->get("{$this->baseUrl}/province");
+                ->timeout(15)
+                ->get("{$this->baseUrl}/destination/province");
 
-            if ($response->successful()) {
-                return $response->json('rajaongkir.results') ?? $fallback;
+            if ($response->successful() && $response->json('meta.status') === 'success') {
+                $data = $response->json('data') ?? [];
+                
+                // Normalize Komerce format to RajaOngkir format
+                $formatted = array_map(function($item) {
+                    return [
+                        'province_id' => $item['id'],
+                        'province' => $item['name']
+                    ];
+                }, $data);
+                
+                return $formatted;
             }
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('RajaOngkir GetProvinces Error: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Komerce GetProvinces Error: ' . $e->getMessage());
         }
         return $fallback;
     }
 
     /**
-     * Get list of cities for a province. Cached for 24 hours.
+     * Get list of cities for a province.
      */
     public function getCities($provinceId)
     {
@@ -55,15 +64,28 @@ class RajaOngkirService
         if (!$this->apiKey || !$provinceId) return $fallback;
 
         try {
+            // Komerce uses path parameter for province_id
             $response = Http::withHeaders(['key' => $this->apiKey])
-                ->timeout(5)
-                ->get("{$this->baseUrl}/city", ['province' => $provinceId]);
+                ->timeout(15)
+                ->get("{$this->baseUrl}/destination/city/{$provinceId}");
 
-            if ($response->successful()) {
-                return $response->json('rajaongkir.results') ?? $fallback;
+            if ($response->successful() && $response->json('meta.status') === 'success') {
+                $data = $response->json('data') ?? [];
+                
+                // Normalize Komerce format to RajaOngkir format
+                $formatted = array_map(function($item) use ($provinceId) {
+                    return [
+                        'city_id' => $item['id'],
+                        'province_id' => $provinceId,
+                        'type' => '',
+                        'city_name' => $item['name']
+                    ];
+                }, $data);
+                
+                return $formatted;
             }
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('RajaOngkir GetCities Error: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Komerce GetCities Error: ' . $e->getMessage());
         }
         return $fallback;
     }
@@ -80,20 +102,38 @@ class RajaOngkirService
         }
 
         try {
+            // Komerce requires application/x-www-form-urlencoded
             $response = Http::withHeaders(['key' => $this->apiKey])
-                ->timeout(5)
-                ->post("{$this->baseUrl}/cost", [
+                ->asForm()
+                ->timeout(15)
+                ->post("{$this->baseUrl}/calculate/domestic-cost", [
                     'origin' => $this->originCityId,
                     'destination' => $destinationCityId,
                     'weight' => $weight,
                     'courier' => $courier
                 ]);
 
-            if ($response->successful()) {
-                return $response->json('rajaongkir.results.0.costs') ?? $fallback;
+            if ($response->successful() && $response->json('meta.status') === 'success') {
+                $data = $response->json('data') ?? [];
+                
+                // Normalize Komerce format to RajaOngkir format
+                $formatted = array_map(function($item) {
+                    return [
+                        'service' => $item['service'] ?? $item['name'],
+                        'cost' => [
+                            [
+                                'value' => $item['cost'],
+                                'etd' => str_replace(' day', '', $item['etd']), // Optional: '8 day' -> '8'
+                                'note' => $item['description'] ?? ''
+                            ]
+                        ]
+                    ];
+                }, $data);
+                
+                return $formatted ?: $fallback;
             }
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('RajaOngkir GetCost Error: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Komerce GetCost Error: ' . $e->getMessage());
         }
 
         return $fallback;
